@@ -7,14 +7,49 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [Ok()],
+        ),
+      ),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+class Ok extends StatelessWidget {
+  const Ok({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: MaterialButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const OkhiHome()));
+        },
+        child: const Text("Start address"),
+      ),
+    );
+  }
+}
+
+class OkhiHome extends StatefulWidget {
+  const OkhiHome({Key? key}) : super(key: key);
+
+  @override
+  State<OkhiHome> createState() => _OkhiHomeState();
+}
+
+class _OkhiHomeState extends State<OkhiHome> {
   @override
   void initState() {
     super.initState();
@@ -71,8 +106,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text("Create an address"),
       ),
@@ -102,12 +136,13 @@ class _MyAppState extends State<MyApp> {
         //you can set this to only home if you only need home addresss by setting [wtihHomeAddressType] = true and [withWorkAddressType] = false
         configuration: OkHiLocationManagerConfiguration(
           withHomeAddressType: true,
+          withAppBar: false,
           withWorkAddressType: false,
           color: "#333",
           logoUrl: "https://mydomain.com/logo.png",
         ),
       ),
-    ));
+    );
   }
 }
 
